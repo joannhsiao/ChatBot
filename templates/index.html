@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}" />
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css.css')}}" /> -->
+    <link href="static/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="static/canvas_bg.js" ></script>
+</head>
+
+<body>
+    <canvas id="c" style="position: absolute;z-index: -1;text-align: center;"></canvas> 
+    <div class="title-block">
+        <div class="title-col">
+            <div class="title-text">Your Lovely Chat Bot</div>
+            <div class="content-block">
+                <form>
+                    <div class="chat-content">
+                        <p class="message-chat"><span>Hi! I'm Your Lovely Bot!</span></p>
+                        <p class="message-chat"><span>Lack Of Love? Let me Stay With U.</span></p>
+                        <div id="chatbox"></div>
+                    </div>
+                    <div class="send-msg-pos">
+                        <input id="text" type="text" name="msg" placeholder="Message" class="send-msg">
+                        <button type="submit" id="send" class="send-msg-icon"><i class="material-icons">send</i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $("form").on("submit", function(event) {
+                var rawText = $("#text").val();
+                var userHtml = '<p class="message-user"><span>' + rawText + "</span></p>";
+                $("#text").val("");
+                $("#chatbox").append(userHtml);
+                document.getElementById("chatbox").scrollIntoView({
+                    block: "end",
+                    behavior: "smooth",
+                });
+                $.ajax({
+                    data: {
+                        msg: rawText,
+                    },
+                    type: "POST",
+                    url: "/get",
+                }).done(function(data) {
+                    var botHtml = '<p class="message-chat"><span>' + data + "</span></p>";
+                    $("#chatbox").append($.parseHTML(botHtml));
+                    document.getElementById("chatbox").scrollIntoView({
+                        block: "end",
+                        behavior: "smooth",
+                    });
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
+</body>
