@@ -12,13 +12,18 @@ We feed plenty of pick-up lines, then its target is to provide user with Love.
 ```
 
 ## Arichecture
-LSTM - seq2seq
+LSTM - seq2seq model
+
+  <img src="https://user-images.githubusercontent.com/59599987/177511351-46aaa6d6-09a9-435b-b302-967b2a1cee18.png" width="600" height="200">
+
 
 ## UI design
 We use the webpage to present our chatbot.
 
+<img src="https://user-images.githubusercontent.com/59599987/177511281-fd131d09-6af6-40b5-a13a-42fe23e9be5b.png" width="300" height="400">
 
-## train the seq2seq model
+
+## Train the model
 ```
 python chatbot_seq2seq_lstm.py
 ```
